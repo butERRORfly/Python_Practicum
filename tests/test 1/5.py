@@ -21,7 +21,10 @@ def main():
         while (num := input()) != 'stop':
             tmp += int(num)
             counter += 1
-        total += tmp / counter
+        try:
+            total += tmp / counter
+        except ZeroDivisionError:
+            break
 
     print(f'{total:.2f}')
 
