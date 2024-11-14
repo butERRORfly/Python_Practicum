@@ -1,34 +1,42 @@
-from itertools import product, combinations
+from itertools import combinations
 
 
 def main():
-    a = input()
-    b = input()
-    prev = input()
+    masty = {"буби": "бубен", "пики": "пик", "трефы": "треф", "черви": "червей"}
+    nominal = [
+        "10",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "валет",
+        "дама",
+        "король",
+        "туз",
+    ]
+    mast_in = input()
+    nominal_out = input()
+    rasklad_before = tuple(input().split(", "))
 
-    suits = {
-        'буби': 'бубен',
-        'пики': 'пик',
-        'трефы': 'треф',
-        'черви': 'червей'
-    }
+    coloda = [n + " " + masty[m] for n in nominal for m in masty]
 
-    nominalo = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'валет', 'дама', 'король', 'туз']
-    nominalo.remove(b)
+    out_3_cards = combinations(sorted(coloda), 3)
 
-    cards = list(product(nominalo, suits.values()))
-
-    filtered_permutations = (perm for perm in combinations(cards, 3) if suits[a] in {card[1] for card in perm})
-
-    flag = 0
-    for i, perm in enumerate(sorted(filtered_permutations)):
-        match flag:
-            case 1:
-                print(', '.join(f'{nominal} {suit}' for nominal, suit in perm))
-                break
-        match ', '.join(f'{nominal} {suit}' for nominal, suit in perm) == prev:
-            case 1:
-                flag = 1
+    flag_next = False
+    for rasklad in out_3_cards:
+        if (
+            flag_next
+            and all(nominal_out not in i for i in rasklad)
+            and any(masty[mast_in] in i for i in rasklad)
+        ):
+            print(", ".join(rasklad))
+            break
+        if rasklad == rasklad_before:
+            flag_next = True
 
 
 if __name__ == "__main__":
