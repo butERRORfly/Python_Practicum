@@ -10,7 +10,7 @@ class Rectangle:
         return round((abs(self.set_1[0] - self.set_2[0]) * abs(self.set_1[1] - self.set_2[1])), 2)
 
     def get_pos(self):
-        return self.set_1[0], self.set_2[1]
+        return min(self.set_1[0], self.set_2[0]), max(self.set_1[1], self.set_2[1])
 
     def get_size(self):
         return round(abs(abs(self.set_1[0]) - abs(self.set_2[0])), 2), round(
