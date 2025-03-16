@@ -1,12 +1,6 @@
-def main():
-    def only_positive_even_sum(*args):
-        if all([not isinstance(x, int) for x in args]):
-            raise TypeError
-        elif not all():
-            raise ValueError
-        else:
-            return sum(args)
-
-
-if __name__ == '__main__':
-    main()
+def only_positive_even_sum(num1, num2):
+    if not all([isinstance(x, int) for x in [num1, num2]]):
+        raise TypeError
+    if not all(isinstance(x, int) and x % 2 == 0 and x > 0 for x in [num1, num2]):
+        raise ValueError
+    return num1 + num2

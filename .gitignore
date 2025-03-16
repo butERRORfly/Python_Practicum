@@ -161,4 +161,4 @@ cython_debug/
 #.idea/
 
 .idea/
-.DS_Store/clear
+.DS_Store/
