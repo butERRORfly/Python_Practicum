@@ -4,19 +4,17 @@ import pandas as pd
 def process_cities(L, Y):
     df = pd.read_csv('city.csv', encoding='utf-8')
     
-    df['longitude'] = df['координаты центра'].str.split(',').str[1].astype(float)
+    filtered_df = df[(df['geo_lon'] > float(L)) & (df['foundation_year'] <= int(Y))]
     
-    df['год основания'] = pd.to_numeric(df['год основания'], errors='coerce')
+    filtered_df = filtered_df.sort_values('city', ascending=False)
     
-    filtered_df = df[(df['longitude'] > L) & (df['год основания'] <= Y)]
-    
-    result_df = filtered_df.sort_values('название города', ascending=False)
-    
-    for _, row in result_df.iterrows():
-        print(f"{row['название города']} {row['население']}")
+    for _, row in filtered_df.iterrows():
+        city_name = row['city']
+        population = int(row['population']) if pd.notna(row['population']) else 0
+        print(f"{city_name} {population}")
 
 
-L = float(input().strip())
-Y = int(input().strip())
+L = input().strip()
+Y = input().strip()
 
 process_cities(L, Y)
